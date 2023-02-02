@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:api_app_firebase/models/conductores.dart';
 import 'package:api_app_firebase/theme/app_theme.dart';
+import 'package:api_app_firebase/widgets/custom_input_field.dart';
 
 import 'package:flutter/material.dart';
 
@@ -44,39 +45,40 @@ class _SolicitarScreenState extends State<SolicitarScreen> {
            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
            child: Column(
             children: [
-              TextField(
-                keyboardType: TextInputType.name,
+              CustomInputField(
                 controller: nombres,
-                decoration: const InputDecoration(
-                  hintText: 'Nombre'
-                ),
+                keyboardType: TextInputType.name,
+                hintText: 'Nombres',
+                labelText: 'Nombres',
+                suffixIcon: Icons.person,
               ),
-              TextField(
-                keyboardType: TextInputType.phone,
+              CustomInputField(
                 controller: celular,
-                decoration: const InputDecoration(
-                  hintText: 'Celular'
-                ),
+                keyboardType: TextInputType.number,
+                hintText: 'Celular',
+                labelText: 'Celular',
+                suffixIcon: Icons.drag_indicator_sharp,
               ),
-              TextField(
+              CustomInputField(
                 controller: placa,
-                decoration: const InputDecoration(
-                  hintText: 'Placa'
-                ),
+                hintText: 'Placa',
+                labelText: 'Placa',
+                helperText: '3 letras y 4 numeros seguidos',
+                suffixIcon: Icons.abc,
               ),
-              TextField(
-                keyboardType: TextInputType.number,
+              CustomInputField(
                 controller: cedula,
-                decoration: const InputDecoration(
-                  hintText: 'Cedula '
-                ),
-              ),
-              TextField(
                 keyboardType: TextInputType.number,
+                hintText: 'Cedula',
+                labelText: 'Cedula',
+                suffixIcon: Icons.numbers,
+              ),
+              CustomInputField(
                 controller: tiempo,
-                decoration: const InputDecoration(
-                  hintText: 'Tiempo '
-                ),
+                keyboardType: TextInputType.number,
+                hintText: 'Tiempo Llegada en Minutos',
+                labelText: 'Tiempo Llegada en Minutos',
+                suffixIcon: Icons.timer,
               ),
               const SizedBox(height: 30),
               TextButton(
@@ -110,15 +112,9 @@ class _SolicitarScreenState extends State<SolicitarScreen> {
 
   void saveConductor() async {
 
-    print(nombres.text);
-    print(celular.text);
-    print(placa.text);
-    print(tiempo.text);
-    print(cedula.text);
 
     final user = { "nombres": nombres.text, "celular": celular.text, "placa": placa.text, "tiempo": tiempo.text, "cedula": cedula.text};
 
-    print(user);
 
     await http.post(url, body: user); 
   
