@@ -54,7 +54,7 @@ class _TaxiDisponibleScreenState extends State<TaxiDisponibleScreen> {
                           ],
                         ),
                       ),
-                      Text('Tiempo de llegada: ${snapshot.data![index].tiempoDeLlegada}')
+                      Text('Tiempo de llegada: ${snapshot.data![index].tiempo}')
                     ],
                   ),
                   trailing: const Icon(Icons.add_circle_outline),
@@ -64,7 +64,7 @@ class _TaxiDisponibleScreenState extends State<TaxiDisponibleScreen> {
                       snapshot.data![index].cedula, 
                       snapshot.data![index].nombres, 
                       snapshot.data![index].celular, 
-                      snapshot.data![index].tiempoDeLlegada
+                      snapshot.data![index].tiempo
                     );
                   },
                 );
@@ -81,12 +81,12 @@ class _TaxiDisponibleScreenState extends State<TaxiDisponibleScreen> {
 
   }
 
-  void showForm(placa, cedula, nombres, celular, tiempo_llegada){
+  void showForm(placa, cedula, nombres, celular, tiempo){
     nombres = nombres;
     placa = placa;
     cedula = cedula;
     celular = celular; 
-    tiempo_llegada = tiempo_llegada;
+    tiempo = tiempo;
     showDialog
     (context: context, 
     builder: (context){
@@ -105,7 +105,7 @@ class _TaxiDisponibleScreenState extends State<TaxiDisponibleScreen> {
             onPressed: (){
 
               final snackBar = SnackBar(
-                content: Text('Tiempo de llegada $tiempo_llegada minutos       |       $nombres en camino'),
+                content: Text('Tiempo de llegada $tiempo minutos       |       $nombres en camino'),
               );
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
               Navigator.pop(context);

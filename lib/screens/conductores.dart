@@ -48,7 +48,7 @@ class _ConductoresScreenState extends State<ConductoresScreen> {
                   title: Text(snapshot.data![index].nombres, style: const TextStyle(fontSize: 20)),
                   trailing: const Icon(Icons.arrow_circle_right_outlined),
                   onTap: (){
-                    return showForm(snapshot.data![index].cedula, snapshot.data![index].celular, snapshot.data![index].nombres);
+                    return showForm(snapshot.data?[index].cedula, snapshot.data?[index].celular, snapshot.data?[index].nombres);
                   },
                 );
                 

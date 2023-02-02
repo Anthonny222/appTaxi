@@ -3,14 +3,14 @@ class Conductores {
     String nombres;
     String celular;
     String placa;
-    String tiempoDeLlegada;
+    String tiempo;
     String cedula;
 
     Conductores({
         required this.nombres,
         required this.celular,
         required this.placa,
-        required this.tiempoDeLlegada,
+        required this.tiempo,
         required this.cedula,
     });
 
@@ -21,10 +21,21 @@ class Conductores {
         nombres: json["nombres"],
         celular: json["celular"],
         placa: json["placa"],
-        tiempoDeLlegada: json["tiempo_de_llegada"],
+        tiempo: json["tiempo"],
         cedula: json["cedula"],
       );
 
     }
+    Map<String, dynamic> toJson() => {
+      "nombres": nombres,
+      "celular": celular,
+      "placa": placa,
+      "tiempo": tiempo,
+      "cedula": cedula,
+    };
+
+    
+
+
 
 }

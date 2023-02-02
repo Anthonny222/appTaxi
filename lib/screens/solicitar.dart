@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:api_app_firebase/models/conductores.dart';
 import 'package:api_app_firebase/theme/app_theme.dart';
-import 'package:api_app_firebase/widgets/custom_input_field.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -21,14 +21,14 @@ class _SolicitarScreenState extends State<SolicitarScreen> {
   
   late Future <List<Conductores>> conductores;
 
-  // final headers = {"Content-Type": "application/json;charset=UTF-8"};
+
 
 
   final nombres = TextEditingController();
   final celular = TextEditingController();
   final placa = TextEditingController();
   final cedula = TextEditingController();
-  final tiempoLlegada = TextEditingController();
+  final tiempo = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,45 +44,44 @@ class _SolicitarScreenState extends State<SolicitarScreen> {
            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
            child: Column(
             children: [
-              CustomInputField(
-                controller: nombres,
+              TextField(
                 keyboardType: TextInputType.name,
-                hintText: 'Nombres',
-                labelText: 'Nombres',
-                suffixIcon: Icons.person,
+                controller: nombres,
+                decoration: const InputDecoration(
+                  hintText: 'Nombre'
+                ),
               ),
-              CustomInputField(
+              TextField(
+                keyboardType: TextInputType.phone,
                 controller: celular,
-                keyboardType: TextInputType.number,
-                hintText: 'Celular',
-                labelText: 'Celular',
-                suffixIcon: Icons.drag_indicator_sharp,
+                decoration: const InputDecoration(
+                  hintText: 'Celular'
+                ),
               ),
-              CustomInputField(
+              TextField(
                 controller: placa,
-                hintText: 'Placa',
-                labelText: 'Placa',
-                helperText: '3 letras y 4 numeros seguidos',
-                suffixIcon: Icons.abc,
+                decoration: const InputDecoration(
+                  hintText: 'Placa'
+                ),
               ),
-              CustomInputField(
+              TextField(
+                keyboardType: TextInputType.number,
                 controller: cedula,
-                keyboardType: TextInputType.number,
-                hintText: 'Cedula',
-                labelText: 'Cedula',
-                suffixIcon: Icons.numbers,
+                decoration: const InputDecoration(
+                  hintText: 'Cedula '
+                ),
               ),
-              CustomInputField(
-                controller: tiempoLlegada,
+              TextField(
                 keyboardType: TextInputType.number,
-                hintText: 'Tiempo Llegada en Minutos',
-                labelText: 'Tiempo Llegada en Minutos',
-                suffixIcon: Icons.timer,
+                controller: tiempo,
+                decoration: const InputDecoration(
+                  hintText: 'Tiempo '
+                ),
               ),
               const SizedBox(height: 30),
               TextButton(
                 onPressed: () async {
-                  print('$nombres');
+                  saveConductor();
                   await Navigator.pushNamed(context, 'taxi_d');
                 }, 
                 style: TextButton.styleFrom(
@@ -111,23 +110,28 @@ class _SolicitarScreenState extends State<SolicitarScreen> {
 
   void saveConductor() async {
 
+    print(nombres.text);
+    print(celular.text);
+    print(placa.text);
+    print(tiempo.text);
+    print(cedula.text);
 
-    await http.post(url,  body: jsonEncode({"nombres": nombres.text, 
-      "celular": celular.text, 
-      "placa": placa.text, 
-      "cedula": cedula.text, 
-      "tiempo_de_llegada": tiempoLlegada.text})); 
+    final user = { "nombres": nombres.text, "celular": celular.text, "placa": placa.text, "tiempo": tiempo.text, "cedula": cedula.text};
+
+    print(user);
+
+    await http.post(url, body: user); 
+  
 
     nombres.clear();
     celular.clear();
     placa.clear();
     cedula.clear();
-    tiempoLlegada.clear();
+    tiempo.clear();
 
     setState(() {
-      
+    
     });
-
 
   }
 }
